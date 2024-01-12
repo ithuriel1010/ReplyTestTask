@@ -1,18 +1,24 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using ReplyTestTask.Drivers;
 
 namespace ReplyTestTask.StepDefinitions
 {
     [Binding]
-    public sealed class Test1
+    public sealed class ContractStepDefinition
     {
         private IWebDriver driver;
+        private readonly ScenarioContext _scenarioContext;
+
+        public ContractStepDefinition(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
 
         [Given(@"Login")]
         public void GivenLogin()
         {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
+            driver = _scenarioContext.Get<SeleniumDriver>("SeleniumDriver").Setup();
             driver.Url = "https://demo.1crmcloud.com";
         }
 
