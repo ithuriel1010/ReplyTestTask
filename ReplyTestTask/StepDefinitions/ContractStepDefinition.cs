@@ -1,6 +1,8 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using ReplyTestTask.Drivers;
+using ReplyTestTask.Objects;
+using ReplyTestTask.Pages;
 
 namespace ReplyTestTask.StepDefinitions
 {
@@ -9,6 +11,10 @@ namespace ReplyTestTask.StepDefinitions
     {
         private IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
+        LoginPage loginPage;
+        TopNavbar topNavbar;
+        ContactsPage contactsPage;
+        Contact contact = new Contact("Mark", "Green", "Sales", new List<string> { "Customers", "Suppliers" });
 
         public ContractStepDefinition(ScenarioContext scenarioContext)
         {
@@ -19,31 +25,33 @@ namespace ReplyTestTask.StepDefinitions
         public void GivenLogin()
         {
             driver = _scenarioContext.Get<SeleniumDriver>("SeleniumDriver").Setup();
-            driver.Url = "https://demo.1crmcloud.com";
+            loginPage = new LoginPage(driver);
+            topNavbar = loginPage.Login("admin", "admin");
         }
 
         [When(@"Navigate to Contacts")]
         public void WhenNavigateToContacts()
         {
-            throw new PendingStepException();
+            contactsPage = topNavbar.OpenContractsPage(driver);
         }
 
         [When(@"Create new contact")]
         public void WhenCreateNewContact()
         {
-            throw new PendingStepException();
+            contactsPage.CreateContact(contact);
         }
 
         [When(@"Open created contact")]
         public void WhenOpenCreatedContact()
         {
-            throw new PendingStepException();
+            contactsPage = topNavbar.OpenContractsPage(driver);
+            contactsPage.SearchForContact(contact).OpenContact(contact);
         }
 
         [Then(@"Contract data matches")]
         public void ThenContractDataMatches()
         {
-            throw new PendingStepException();
+            contactsPage.CheckContactInfo(contact);
         }
 
     }
