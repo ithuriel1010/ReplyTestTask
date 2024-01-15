@@ -15,14 +15,16 @@ namespace ReplyTestTask.Pages
         private IWebDriver driver;
         private Helpers helpers;
         By salesAndMarketingTile = By.Id("grouptab-1");
+        By reportsAndSettingsTile = By.Id("grouptab-5");
         By contactsSublink = By.XPath("//a[@class='menu-tab-sub-list' and text()=' Contacts']");
+        By reportsSublink = By.XPath("//a[@class='menu-tab-sub-list' and text()=' Reports']");
         public TopNavbar(IWebDriver driver)
         {
             this.driver = driver;
             helpers = new Helpers(driver);
         }
 
-        public ContactsPage OpenContractsPage(IWebDriver driver)
+        public ContactsPage OpenContractsPage()
         {
             driver.FindElement(salesAndMarketingTile).Click();
             helpers.WaitForElementClickable(contactsSublink);
@@ -30,6 +32,15 @@ namespace ReplyTestTask.Pages
             helpers.WaitForURLContaining("module=Contacts");
 
             return new ContactsPage(driver);
+        }
+        public ReportsPage OpenReportsPage()
+        {
+            driver.FindElement(reportsAndSettingsTile).Click();
+            helpers.WaitForElementClickable(reportsSublink);
+            driver.FindElement(reportsSublink).Click();
+            helpers.WaitForURLContaining("module=Reports");
+
+            return new ReportsPage(driver);
         }
     }
 }

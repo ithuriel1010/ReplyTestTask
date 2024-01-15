@@ -7,32 +7,24 @@ using ReplyTestTask.Pages;
 namespace ReplyTestTask.StepDefinitions
 {
     [Binding]
-    public sealed class ContactStepDefinition
+    [Scope(Feature = "Contacts")]
+    public sealed class ContactStepDefinition:BasicStepDefinition
     {
-        private IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
-        LoginPage loginPage;
         TopNavbar topNavbar;
         ContactsPage contactsPage;
         Contact contact = new Contact("Mark", "Green", "Sales", new List<string> { "Customers", "Suppliers" });
 
-        public ContactStepDefinition(ScenarioContext scenarioContext)
+        public ContactStepDefinition(ScenarioContext scenarioContext): base(scenarioContext)
         {
-            _scenarioContext = scenarioContext;
-        }
-
-        [Given(@"Login")]
-        public void GivenLogin()
-        {
-            driver = _scenarioContext.Get<SeleniumDriver>("SeleniumDriver").Setup();
-            loginPage = new LoginPage(driver);
-            topNavbar = loginPage.Login("admin", "admin");
+           _scenarioContext = scenarioContext;
         }
 
         [When(@"Navigate to Contacts")]
         public void WhenNavigateToContacts()
         {
-            contactsPage = topNavbar.OpenContractsPage(driver);
+            topNavbar = new TopNavbar(driver);
+            contactsPage = topNavbar.OpenContractsPage();
         }
 
         [When(@"Create new contact")]
@@ -44,7 +36,7 @@ namespace ReplyTestTask.StepDefinitions
         [When(@"Open created contact")]
         public void WhenOpenCreatedContact()
         {
-            contactsPage = topNavbar.OpenContractsPage(driver);
+            contactsPage = topNavbar.OpenContractsPage();
             contactsPage.SearchForContact(contact).OpenContact(contact);
         }
 
