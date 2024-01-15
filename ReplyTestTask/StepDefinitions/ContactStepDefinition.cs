@@ -7,7 +7,7 @@ using ReplyTestTask.Pages;
 namespace ReplyTestTask.StepDefinitions
 {
     [Binding]
-    public sealed class ContractStepDefinition
+    public sealed class ContactStepDefinition
     {
         private IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
@@ -16,7 +16,7 @@ namespace ReplyTestTask.StepDefinitions
         ContactsPage contactsPage;
         Contact contact = new Contact("Mark", "Green", "Sales", new List<string> { "Customers", "Suppliers" });
 
-        public ContractStepDefinition(ScenarioContext scenarioContext)
+        public ContactStepDefinition(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }

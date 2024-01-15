@@ -1,4 +1,4 @@
-﻿Feature: Contracts
+﻿Feature: Contacts
 
 A short summary of the feature
 
