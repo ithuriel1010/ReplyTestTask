@@ -1,11 +1,5 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using ReplyTestTask.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReplyTestTask.Pages
 {
@@ -42,14 +36,14 @@ namespace ReplyTestTask.Pages
         }
         public ReportsPage RunReport()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(2000); //Waiting for element to be clickable is not enough, button is not clicked after the wait
             helpers.WaitForElementClickable(runReportButton);
             driver.FindElement(runReportButton).Click();   
             return this;
         }
         public ReportsPage CheckIfReportResultsAreDisplayed()
         {
-            Thread.Sleep(3000);
+            helpers.WaitForElementVisible(reportResultsTable);
             Assert.True(driver.FindElement(reportResultsTable).Displayed);
             return this;
         }

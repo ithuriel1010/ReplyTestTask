@@ -1,8 +1,8 @@
 ﻿Feature: Contacts
 
-A short summary of the feature
+User can create, view, edit and delete contacts
 
-@tag1
+@smoke
 Scenario: Create contact
 	Given Login
 	When Navigate to Contacts

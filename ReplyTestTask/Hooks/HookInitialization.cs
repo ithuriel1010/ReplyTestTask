@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using ReplyTestTask.Drivers;
-using TechTalk.SpecFlow;
 
 namespace ReplyTestTask.Hooks
 {

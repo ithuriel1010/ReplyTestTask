@@ -1,10 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReplyTestTask.Pages
 {
@@ -26,7 +20,6 @@ namespace ReplyTestTask.Pages
             driver.FindElement(usernameField).SendKeys(username);
             driver.FindElement(passwordField).SendKeys(password);
             driver.FindElement(loginButton).Click();    
-            Thread.Sleep(2000);
 
             return new TopNavbar(driver);
         }

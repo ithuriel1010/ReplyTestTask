@@ -1,13 +1,4 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using ReplyTestTask.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
+﻿using OpenQA.Selenium;
 
 namespace ReplyTestTask.Pages
 {
@@ -29,19 +20,14 @@ namespace ReplyTestTask.Pages
 
         public ActivityLogPage SelectFirstActivities(int number) 
         {
-            Thread.Sleep(5000);
-
             var activities = driver.FindElements(activityCheckmark);
             var activitiesToSelect = activities.Take(number);
             foreach (var activity in activitiesToSelect) 
             {
                 activity.Click();
             }
-
-            Thread.Sleep(5000);
             return this;
         }
-
         public int CheckActivityCount()
         {
             int count = 0;
@@ -60,7 +46,6 @@ namespace ReplyTestTask.Pages
             }
             return count;
         }
-
         public ActivityLogPage DeleteSelectedActivities()
         {
             helpers.WaitForElementClickable(actionButton);
@@ -72,8 +57,5 @@ namespace ReplyTestTask.Pages
             helpers.WaitForElementWithText(activitiesStatus, " Selected: 0 of");
             return this;
         }
-
-
-
     }
 }

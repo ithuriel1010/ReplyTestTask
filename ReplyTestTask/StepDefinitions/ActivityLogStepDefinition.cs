@@ -1,8 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using ReplyTestTask.Drivers;
-using ReplyTestTask.Objects;
 using ReplyTestTask.Pages;
 
 namespace ReplyTestTask.StepDefinitions
@@ -48,7 +44,5 @@ namespace ReplyTestTask.StepDefinitions
             int deletedActivities = activityNumberBeforeDelete - activityNumberAfterDelete;
             Assert.AreEqual(number, deletedActivities, "The actual value is not equal to the expected value.");
         }
-
-
     }
 }

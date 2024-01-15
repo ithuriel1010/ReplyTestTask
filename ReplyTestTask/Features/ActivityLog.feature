@@ -1,8 +1,8 @@
 ﻿Feature: ActivityLog
 
-A short summary of the feature
+List of activities performed in the site. User can delete, export or print selected activities.
 
-@tag1
+@smoke
 Scenario: Remove events from the activity log
 	Given Login
 	When Navigate to Activity Log

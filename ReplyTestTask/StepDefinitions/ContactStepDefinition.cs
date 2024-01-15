@@ -1,7 +1,4 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using ReplyTestTask.Drivers;
-using ReplyTestTask.Objects;
+﻿using ReplyTestTask.Objects;
 using ReplyTestTask.Pages;
 
 namespace ReplyTestTask.StepDefinitions
@@ -45,6 +42,5 @@ namespace ReplyTestTask.StepDefinitions
         {
             contactsPage.CheckContactInfo(contact);
         }
-
     }
 }

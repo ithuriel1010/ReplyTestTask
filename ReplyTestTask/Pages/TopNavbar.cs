@@ -1,12 +1,4 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using OpenQA.Selenium;
 
 namespace ReplyTestTask.Pages
 {
@@ -22,9 +14,9 @@ namespace ReplyTestTask.Pages
             this.driver = driver;
             helpers = new Helpers(driver);
         }
-
         public ContactsPage OpenContractsPage()
         {
+            helpers.WaitForElementClickable(salesAndMarketingTile);
             driver.FindElement(salesAndMarketingTile).Click();
             helpers.WaitForElementClickable(tileSublink("Contacts"));
             driver.FindElement(tileSublink("Contacts")).Click();
@@ -34,6 +26,7 @@ namespace ReplyTestTask.Pages
         }
         public ReportsPage OpenReportsPage()
         {
+            helpers.WaitForElementClickable(reportsAndSettingsTile);
             driver.FindElement(reportsAndSettingsTile).Click();
             helpers.WaitForElementClickable(tileSublink("Reports"));
             driver.FindElement(tileSublink("Reports")).Click();
@@ -43,6 +36,7 @@ namespace ReplyTestTask.Pages
         }
         public ActivityLogPage OpenActivityLogPage()
         {
+            helpers.WaitForElementClickable(reportsAndSettingsTile);
             driver.FindElement(reportsAndSettingsTile).Click();
             helpers.WaitForElementClickable(tileSublink("Activity Log"));
             driver.FindElement(tileSublink("Activity Log")).Click();

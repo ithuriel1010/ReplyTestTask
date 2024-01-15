@@ -1,8 +1,4 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using ReplyTestTask.Drivers;
-using ReplyTestTask.Objects;
-using ReplyTestTask.Pages;
+﻿using ReplyTestTask.Pages;
 
 namespace ReplyTestTask.StepDefinitions
 {
@@ -13,7 +9,8 @@ namespace ReplyTestTask.StepDefinitions
         private readonly ScenarioContext _scenarioContext;
         TopNavbar topNavbar;
         ReportsPage reportsPage;
-       
+        string reportName = "Project Profitability";
+
         public ReportsStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -29,13 +26,13 @@ namespace ReplyTestTask.StepDefinitions
         [When(@"Find report")]
         public void WhenFindReport()
         {
-            reportsPage.SearchForReport("Project Profitability");
+            reportsPage.SearchForReport(reportName);
         }
 
         [When(@"Run report")]
         public void WhenRunReport()
         {
-            string reportName = "Project Profitability";
+            
             reportsPage.OpenReport(reportName).RunReport();
         }
 
@@ -44,7 +41,5 @@ namespace ReplyTestTask.StepDefinitions
         {
             reportsPage.CheckIfReportResultsAreDisplayed();
         }
-
-
     }
 }

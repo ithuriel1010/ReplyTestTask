@@ -1,11 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using ReplyTestTask.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReplyTestTask.Pages
 {
@@ -20,12 +15,13 @@ namespace ReplyTestTask.Pages
         By categoriesInput = By.Id("DetailFormcategories-input");
         By searchCategoriesInput = By.XPath("//div[@id='DetailFormcategories-input-search']//input[@class='input-text']");
         By roleInput = By.Id("DetailFormbusiness_role-input");
+        By roleOption(string role) => By.XPath($"//div[@class='option-cell input-label ' and text()='{role}']");
         By saveButton = By.Id("DetailForm_save-label");
         By searchField = By.Id("filter_text");
         By contactName = By.Id("_form_header");
         By bussinessRole = By.XPath("//div[contains(@class,'cell-business_role')]/div/div[@class='form-value']");
         By contactSummary = By.XPath("//ul[@class=\"summary-list\"]");
-        By contactLinks = By.XPath("//a[@class='listViewNameLink']");
+        By contactLink(string name) => By.XPath($"//a[@class='listViewNameLink' and text()='{name}']");
 
         public ContactsPage(IWebDriver driver)
         {
@@ -48,10 +44,8 @@ namespace ReplyTestTask.Pages
                 driver.FindElement(searchCategoriesInput).SendKeys(Keys.Enter);
             }
             driver.FindElement(roleInput).Click();
-            driver.FindElement(By.XPath($"//div[@class='option-cell input-label ' and text()='{contact.Role}']"))
-                .Click();
+            driver.FindElement(roleOption(contact.Role)).Click();
             driver.FindElement(saveButton).Click();
-            Thread.Sleep(2000);
             return this;    
         }
         public ContactsPage SearchForContact(Contact contact)
@@ -60,11 +54,9 @@ namespace ReplyTestTask.Pages
             Thread.Sleep(3000);
             return this;
         }
-
         public ContactsPage OpenContact(Contact contact)
         {
-            driver.FindElement(By.XPath($"//a[@class='listViewNameLink' and text()='{contact.FirstName} {contact.LastName}']")).Click();
-
+            driver.FindElement(contactLink($"{contact.FirstName} {contact.LastName}")).Click();
             return this;
         }
         public ContactsPage CheckContactInfo(Contact contact) 
@@ -80,7 +72,6 @@ namespace ReplyTestTask.Pages
                 Assert.IsTrue(driver.FindElement(contactSummary).Text.Contains(category),
                     driver.FindElement(contactSummary).Text + $" doesn't contains {category}");
             }
-
             return this;
         }
     }

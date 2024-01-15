@@ -1,8 +1,8 @@
 ﻿Feature: Reports
 
-A short summary of the feature
+User can run a report and view it's results
 
-@tag1
+@smoke
 Scenario: Run Report
 	Given Login
 	When Navigate to Reports
