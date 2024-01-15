@@ -16,8 +16,7 @@ namespace ReplyTestTask.Pages
         private Helpers helpers;
         By salesAndMarketingTile = By.Id("grouptab-1");
         By reportsAndSettingsTile = By.Id("grouptab-5");
-        By contactsSublink = By.XPath("//a[@class='menu-tab-sub-list' and text()=' Contacts']");
-        By reportsSublink = By.XPath("//a[@class='menu-tab-sub-list' and text()=' Reports']");
+        By tileSublink(string subpageName) => By.XPath($"//a[@class='menu-tab-sub-list' and text()=' {subpageName}']");
         public TopNavbar(IWebDriver driver)
         {
             this.driver = driver;
@@ -27,8 +26,8 @@ namespace ReplyTestTask.Pages
         public ContactsPage OpenContractsPage()
         {
             driver.FindElement(salesAndMarketingTile).Click();
-            helpers.WaitForElementClickable(contactsSublink);
-            driver.FindElement(contactsSublink).Click();
+            helpers.WaitForElementClickable(tileSublink("Contacts"));
+            driver.FindElement(tileSublink("Contacts")).Click();
             helpers.WaitForURLContaining("module=Contacts");
 
             return new ContactsPage(driver);
@@ -36,11 +35,20 @@ namespace ReplyTestTask.Pages
         public ReportsPage OpenReportsPage()
         {
             driver.FindElement(reportsAndSettingsTile).Click();
-            helpers.WaitForElementClickable(reportsSublink);
-            driver.FindElement(reportsSublink).Click();
+            helpers.WaitForElementClickable(tileSublink("Reports"));
+            driver.FindElement(tileSublink("Reports")).Click();
             helpers.WaitForURLContaining("module=Reports");
 
             return new ReportsPage(driver);
+        }
+        public ActivityLogPage OpenActivityLogPage()
+        {
+            driver.FindElement(reportsAndSettingsTile).Click();
+            helpers.WaitForElementClickable(tileSublink("Activity Log"));
+            driver.FindElement(tileSublink("Activity Log")).Click();
+            helpers.WaitForURLContaining("module=ActivityLog");
+
+            return new ActivityLogPage(driver);
         }
     }
 }

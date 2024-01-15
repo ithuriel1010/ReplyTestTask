@@ -26,6 +26,10 @@ namespace ReplyTestTask.Pages
         {
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
         }
+        public void WaitForElementWithText(By locator, string text)
+        {
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementLocated(locator, text));
+        }
         public void WaitForURLContaining(string urlFraagment)
         {
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(urlFraagment));

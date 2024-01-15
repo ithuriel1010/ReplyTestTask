@@ -11,7 +11,6 @@ namespace ReplyTestTask.StepDefinitions
         protected IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
         LoginPage loginPage;
-        TopNavbar topNavbar;
 
         public BasicStepDefinition(ScenarioContext scenarioContext)
         {
