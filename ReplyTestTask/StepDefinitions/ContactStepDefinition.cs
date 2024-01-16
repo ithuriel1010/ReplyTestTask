@@ -9,7 +9,7 @@ namespace ReplyTestTask.StepDefinitions
     {
         TopNavbar topNavbar;
         ContactsPage contactsPage;
-        Contact contact = new("Mark", "Green", "Sales", new List<string> { "Customers", "Suppliers" });
+        private readonly Contact _contact = new("Mark", "Green", "Sales", new List<string> { "Customers", "Suppliers" });
 
         public ContactStepDefinition(ScenarioContext scenarioContext): base(scenarioContext) {}
 
@@ -21,22 +21,16 @@ namespace ReplyTestTask.StepDefinitions
         }
 
         [When(@"Create new contact")]
-        public void WhenCreateNewContact()
-        {
-            contactsPage.CreateContact(contact);
-        }
+        public void WhenCreateNewContact() => contactsPage.CreateContact(_contact);
 
         [When(@"Open created contact")]
         public void WhenOpenCreatedContact()
         {
             contactsPage = topNavbar.OpenContractsPage();
-            contactsPage.SearchForContact(contact).OpenContact(contact);
+            contactsPage.SearchForContact(_contact).OpenContact(_contact);
         }
 
         [Then(@"Contract data matches")]
-        public void ThenContractDataMatches()
-        {
-            contactsPage.CheckContactInfo(contact);
-        }
+        public void ThenContractDataMatches() => contactsPage.CheckContactInfo(_contact);
     }
 }

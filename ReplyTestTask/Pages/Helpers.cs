@@ -8,12 +8,10 @@ namespace ReplyTestTask.Pages
 {
     public class Helpers
     {
-        private readonly IWebDriver _driver;
         private readonly WebDriverWait _wait;
         public Helpers(IWebDriver driver) 
         {
-            _driver = driver;
-            _wait = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(10000));
+            _wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(10000));
         }
 
         public void WaitForElementClickable(By locator)

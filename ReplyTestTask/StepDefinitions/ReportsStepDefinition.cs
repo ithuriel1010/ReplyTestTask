@@ -8,7 +8,7 @@ namespace ReplyTestTask.StepDefinitions
     {
         TopNavbar topNavbar;
         ReportsPage reportsPage;
-        string reportName = "Project Profitability";
+        private readonly string _reportName = "Project Profitability";
 
         public ReportsStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext){}
 
@@ -20,21 +20,12 @@ namespace ReplyTestTask.StepDefinitions
         }
 
         [When(@"Find report")]
-        public void WhenFindReport()
-        {
-            reportsPage.SearchForReport(reportName);
-        }
+        public void WhenFindReport() => reportsPage.SearchForReport(_reportName);
 
         [When(@"Run report")]
-        public void WhenRunReport()
-        {
-            reportsPage.OpenReport(reportName).RunReport();
-        }
+        public void WhenRunReport() => reportsPage.OpenReport(_reportName).RunReport();
 
         [Then(@"Check results")]
-        public void ThenCheckResults()
-        {
-            reportsPage.CheckIfReportResultsAreDisplayed();
-        }
+        public void ThenCheckResults() => reportsPage.CheckIfReportResultsAreDisplayed();
     }
 }

@@ -21,10 +21,7 @@ namespace ReplyTestTask.StepDefinitions
         }
 
         [When(@"Select first (.*) items")]
-        public void WhenSelectFirstItems(int number)
-        {
-            activityLogPage.SelectFirstActivities(number);
-        }
+        public void WhenSelectFirstItems(int number) => activityLogPage.SelectFirstActivities(number);
 
         [When(@"Delete selected actions")]
         public void WhenDeleteSelectedActions()

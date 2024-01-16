@@ -15,13 +15,13 @@ namespace ReplyTestTask.Pages
         private readonly By _categoriesInput = By.Id("DetailFormcategories-input");
         private readonly By _searchCategoriesInput = By.XPath("//div[@id='DetailFormcategories-input-search']//input[@class='input-text']");
         private readonly By _roleInput = By.Id("DetailFormbusiness_role-input");
-        private By _roleOption(string role) => By.XPath($"//div[@class='option-cell input-label ' and text()='{role}']");
         private readonly By _saveButton = By.Id("DetailForm_save-label");
         private readonly By _searchField = By.Id("filter_text");
         private readonly By _contactName = By.Id("_form_header");
         private readonly By _bussinessRole = By.XPath("//div[contains(@class,'cell-business_role')]/div/div[@class='form-value']");
         private readonly By _contactSummary = By.XPath("//ul[@class=\"summary-list\"]");
-        private By _contactLink(string name) => By.XPath($"//a[@class='listViewNameLink' and text()='{name}']");
+        private static By RoleOption(string role) => By.XPath($"//div[@class='option-cell input-label ' and text()='{role}']");
+        private static By ContactLink(string name) => By.XPath($"//a[@class='listViewNameLink' and text()='{name}']");
 
         public ContactsPage(IWebDriver driver)
         {
@@ -44,7 +44,7 @@ namespace ReplyTestTask.Pages
                 _driver.FindElement(_searchCategoriesInput).SendKeys(Keys.Enter);
             }
             _driver.FindElement(_roleInput).Click();
-            _driver.FindElement(_roleOption(contact.Role)).Click();
+            _driver.FindElement(RoleOption(contact.Role)).Click();
             _driver.FindElement(_saveButton).Click();
             Thread.Sleep(1000); //Contact not saved correctly if user moves to the next step without a pause
 
@@ -58,7 +58,7 @@ namespace ReplyTestTask.Pages
         }
         public ContactsPage OpenContact(Contact contact)
         {
-            _driver.FindElement(_contactLink($"{contact.FirstName} {contact.LastName}")).Click();
+            _driver.FindElement(ContactLink($"{contact.FirstName} {contact.LastName}")).Click();
             return this;
         }
         public ContactsPage CheckContactInfo(Contact contact) 
