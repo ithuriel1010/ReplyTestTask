@@ -46,12 +46,14 @@ namespace ReplyTestTask.Pages
             driver.FindElement(roleInput).Click();
             driver.FindElement(roleOption(contact.Role)).Click();
             driver.FindElement(saveButton).Click();
+            Thread.Sleep(1000); //Contact not saved correctly if user moves to the next step without a pause
+
             return this;    
         }
         public ContactsPage SearchForContact(Contact contact)
         {
             driver.FindElement(searchField).SendKeys($"{contact.FirstName} {contact.LastName} {Keys.Enter}");
-            Thread.Sleep(3000);
+            Thread.Sleep(3000); //Time for search results to load
             return this;
         }
         public ContactsPage OpenContact(Contact contact)

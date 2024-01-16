@@ -1,5 +1,8 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System.Reflection;
+using System.Reflection.Metadata;
+using System.Text.Json;
 
 namespace ReplyTestTask.Pages
 {
@@ -28,6 +31,17 @@ namespace ReplyTestTask.Pages
         public void WaitForURLContaining(string urlFraagment)
         {
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(urlFraagment));
+        }
+        public string GetSetUpProperty(string property) 
+        {
+            string result;
+            string jsonFilePath = Path.Combine("Setup", "SetUp.json");
+            string jsonContent = File.ReadAllText(jsonFilePath);
+            
+            JsonDocument jsonDocument = JsonDocument.Parse(jsonContent);
+            JsonElement root = jsonDocument.RootElement;
+            result = root.GetProperty(property).GetString();
+            return result;
         }
     }
 }

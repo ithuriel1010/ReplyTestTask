@@ -20,7 +20,7 @@ namespace ReplyTestTask.StepDefinitions
         {
             driver = _scenarioContext.Get<SeleniumDriver>("SeleniumDriver").Setup();
             loginPage = new LoginPage(driver);
-            loginPage.Login("admin", "admin");
+            loginPage.Login();
         }
     }
 }
