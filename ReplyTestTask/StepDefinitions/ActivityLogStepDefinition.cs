@@ -5,22 +5,18 @@ namespace ReplyTestTask.StepDefinitions
 {
     [Binding]
     [Scope(Feature = "ActivityLog")]
-    public sealed class ActivityLogStepDefinition : BasicStepDefinition
+    public class ActivityLogStepDefinition : BasicStepDefinition
     {
-        private readonly ScenarioContext _scenarioContext;
         TopNavbar topNavbar;
         ActivityLogPage activityLogPage;
         private int activityNumberBeforeDelete = 0;
 
-        public ActivityLogStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext)
-        {
-            _scenarioContext = scenarioContext;
-        }
+        public ActivityLogStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext) {}
 
         [When(@"Navigate to Activity Log")]
         public void WhenNavigateToReports()
         {
-            topNavbar = new TopNavbar(driver);
+            topNavbar = new TopNavbar(_driver);
             activityLogPage = topNavbar.OpenActivityLogPage();
         }
 

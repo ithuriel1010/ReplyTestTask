@@ -6,73 +6,73 @@ namespace ReplyTestTask.Pages
 {
     public class ContactsPage
     {
-        private IWebDriver driver;
-        private Helpers helpers;
+        private readonly IWebDriver _driver;
+        private readonly Helpers _helpers;
 
-        By createButton = By.XPath("//button[contains(@id, 'create')]");
-        By firstNameInput = By.Id("DetailFormfirst_name-input");
-        By lastNameInput = By.Id("DetailFormlast_name-input");
-        By categoriesInput = By.Id("DetailFormcategories-input");
-        By searchCategoriesInput = By.XPath("//div[@id='DetailFormcategories-input-search']//input[@class='input-text']");
-        By roleInput = By.Id("DetailFormbusiness_role-input");
-        By roleOption(string role) => By.XPath($"//div[@class='option-cell input-label ' and text()='{role}']");
-        By saveButton = By.Id("DetailForm_save-label");
-        By searchField = By.Id("filter_text");
-        By contactName = By.Id("_form_header");
-        By bussinessRole = By.XPath("//div[contains(@class,'cell-business_role')]/div/div[@class='form-value']");
-        By contactSummary = By.XPath("//ul[@class=\"summary-list\"]");
-        By contactLink(string name) => By.XPath($"//a[@class='listViewNameLink' and text()='{name}']");
+        private readonly By _createButton = By.XPath("//button[contains(@id, 'create')]");
+        private readonly By _firstNameInput = By.Id("DetailFormfirst_name-input");
+        private readonly By _lastNameInput = By.Id("DetailFormlast_name-input");
+        private readonly By _categoriesInput = By.Id("DetailFormcategories-input");
+        private readonly By _searchCategoriesInput = By.XPath("//div[@id='DetailFormcategories-input-search']//input[@class='input-text']");
+        private readonly By _roleInput = By.Id("DetailFormbusiness_role-input");
+        private By _roleOption(string role) => By.XPath($"//div[@class='option-cell input-label ' and text()='{role}']");
+        private readonly By _saveButton = By.Id("DetailForm_save-label");
+        private readonly By _searchField = By.Id("filter_text");
+        private readonly By _contactName = By.Id("_form_header");
+        private readonly By _bussinessRole = By.XPath("//div[contains(@class,'cell-business_role')]/div/div[@class='form-value']");
+        private readonly By _contactSummary = By.XPath("//ul[@class=\"summary-list\"]");
+        private By _contactLink(string name) => By.XPath($"//a[@class='listViewNameLink' and text()='{name}']");
 
         public ContactsPage(IWebDriver driver)
         {
-            this.driver = driver;
-            helpers = new Helpers(driver);
+            _driver = driver;
+            _helpers = new Helpers(_driver);
         }
 
         public ContactsPage CreateContact(Contact contact) 
         {
-            driver.FindElement(createButton).Click();
-            helpers.WaitForElementClickable(firstNameInput);
-            driver.FindElement(firstNameInput).SendKeys(contact.FirstName);
-            driver.FindElement(lastNameInput).SendKeys(contact.LastName);
+            _driver.FindElement(_createButton).Click();
+            _helpers.WaitForElementClickable(_firstNameInput);
+            _driver.FindElement(_firstNameInput).SendKeys(contact.FirstName);
+            _driver.FindElement(_lastNameInput).SendKeys(contact.LastName);
             foreach (var category in contact.Categories)
             {
                 Thread.Sleep(3000);
-                driver.FindElement(categoriesInput).Click();    
-                helpers.WaitForElementClickable(searchCategoriesInput);
-                driver.FindElement(searchCategoriesInput).SendKeys(category);
-                driver.FindElement(searchCategoriesInput).SendKeys(Keys.Enter);
+                _driver.FindElement(_categoriesInput).Click();    
+                _helpers.WaitForElementClickable(_searchCategoriesInput);
+                _driver.FindElement(_searchCategoriesInput).SendKeys(category);
+                _driver.FindElement(_searchCategoriesInput).SendKeys(Keys.Enter);
             }
-            driver.FindElement(roleInput).Click();
-            driver.FindElement(roleOption(contact.Role)).Click();
-            driver.FindElement(saveButton).Click();
+            _driver.FindElement(_roleInput).Click();
+            _driver.FindElement(_roleOption(contact.Role)).Click();
+            _driver.FindElement(_saveButton).Click();
             Thread.Sleep(1000); //Contact not saved correctly if user moves to the next step without a pause
 
             return this;    
         }
         public ContactsPage SearchForContact(Contact contact)
         {
-            driver.FindElement(searchField).SendKeys($"{contact.FirstName} {contact.LastName} {Keys.Enter}");
+            _driver.FindElement(_searchField).SendKeys($"{contact.FirstName} {contact.LastName} {Keys.Enter}");
             Thread.Sleep(3000); //Time for search results to load
             return this;
         }
         public ContactsPage OpenContact(Contact contact)
         {
-            driver.FindElement(contactLink($"{contact.FirstName} {contact.LastName}")).Click();
+            _driver.FindElement(_contactLink($"{contact.FirstName} {contact.LastName}")).Click();
             return this;
         }
         public ContactsPage CheckContactInfo(Contact contact) 
         {
-            helpers.WaitForElementVisible(contactName);
+            _helpers.WaitForElementVisible(_contactName);
 
-            Assert.AreEqual((contact.FirstName + " " + contact.LastName), driver.FindElement(contactName).Text.Trim(' '));
-            Assert.IsTrue(driver.FindElement(bussinessRole).Text.Equals(contact.Role), 
-                driver.FindElement(bussinessRole).Text + $" doesn't contains {contact.Role}");
+            Assert.AreEqual((contact.FirstName + " " + contact.LastName), _driver.FindElement(_contactName).Text.Trim(' '));
+            Assert.IsTrue(_driver.FindElement(_bussinessRole).Text.Equals(contact.Role), 
+                _driver.FindElement(_bussinessRole).Text + $" doesn't contains {contact.Role}");
 
             foreach (var category in contact.Categories)
             {
-                Assert.IsTrue(driver.FindElement(contactSummary).Text.Contains(category),
-                    driver.FindElement(contactSummary).Text + $" doesn't contains {category}");
+                Assert.IsTrue(_driver.FindElement(_contactSummary).Text.Contains(category),
+                    _driver.FindElement(_contactSummary).Text + $" doesn't contains {category}");
             }
             return this;
         }

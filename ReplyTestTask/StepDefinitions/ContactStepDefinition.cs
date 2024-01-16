@@ -5,22 +5,18 @@ namespace ReplyTestTask.StepDefinitions
 {
     [Binding]
     [Scope(Feature = "Contacts")]
-    public sealed class ContactStepDefinition:BasicStepDefinition
+    public class ContactStepDefinition:BasicStepDefinition
     {
-        private readonly ScenarioContext _scenarioContext;
         TopNavbar topNavbar;
         ContactsPage contactsPage;
-        Contact contact = new Contact("Mark", "Green", "Sales", new List<string> { "Customers", "Suppliers" });
+        Contact contact = new("Mark", "Green", "Sales", new List<string> { "Customers", "Suppliers" });
 
-        public ContactStepDefinition(ScenarioContext scenarioContext): base(scenarioContext)
-        {
-           _scenarioContext = scenarioContext;
-        }
+        public ContactStepDefinition(ScenarioContext scenarioContext): base(scenarioContext) {}
 
         [When(@"Navigate to Contacts")]
         public void WhenNavigateToContacts()
         {
-            topNavbar = new TopNavbar(driver);
+            topNavbar = new TopNavbar(_driver);
             contactsPage = topNavbar.OpenContractsPage();
         }
 

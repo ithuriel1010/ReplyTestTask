@@ -4,22 +4,18 @@ namespace ReplyTestTask.StepDefinitions
 {
     [Binding]
     [Scope(Feature = "Reports")]
-    public sealed class ReportsStepDefinition : BasicStepDefinition
+    public class ReportsStepDefinition : BasicStepDefinition
     {
-        private readonly ScenarioContext _scenarioContext;
         TopNavbar topNavbar;
         ReportsPage reportsPage;
         string reportName = "Project Profitability";
 
-        public ReportsStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext)
-        {
-            _scenarioContext = scenarioContext;
-        }
+        public ReportsStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext){}
 
         [When(@"Navigate to Reports")]
         public void WhenNavigateToReports()
         {
-            topNavbar = new TopNavbar(driver);
+            topNavbar = new TopNavbar(_driver);
             reportsPage = topNavbar.OpenReportsPage();
         }
 
@@ -32,7 +28,6 @@ namespace ReplyTestTask.StepDefinitions
         [When(@"Run report")]
         public void WhenRunReport()
         {
-            
             reportsPage.OpenReport(reportName).RunReport();
         }
 

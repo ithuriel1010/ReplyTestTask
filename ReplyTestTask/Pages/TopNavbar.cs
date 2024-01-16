@@ -4,45 +4,45 @@ namespace ReplyTestTask.Pages
 {
     public class TopNavbar
     {
-        private IWebDriver driver;
-        private Helpers helpers;
-        By salesAndMarketingTile = By.Id("grouptab-1");
-        By reportsAndSettingsTile = By.Id("grouptab-5");
-        By tileSublink(string subpageName) => By.XPath($"//a[@class='menu-tab-sub-list' and text()=' {subpageName}']");
+        private readonly IWebDriver _driver;
+        private readonly Helpers _helpers;
+        private readonly By _salesAndMarketingTile = By.Id("grouptab-1");
+        private readonly By _reportsAndSettingsTile = By.Id("grouptab-5");
+        private By _tileSublink(string subpageName) => By.XPath($"//a[@class='menu-tab-sub-list' and text()=' {subpageName}']");
         public TopNavbar(IWebDriver driver)
         {
-            this.driver = driver;
-            helpers = new Helpers(driver);
+            _driver = driver;
+            _helpers = new Helpers(_driver);
         }
         public ContactsPage OpenContractsPage()
         {
-            helpers.WaitForElementClickable(salesAndMarketingTile);
-            driver.FindElement(salesAndMarketingTile).Click();
-            helpers.WaitForElementClickable(tileSublink("Contacts"));
-            driver.FindElement(tileSublink("Contacts")).Click();
-            helpers.WaitForURLContaining("module=Contacts");
+            _helpers.WaitForElementClickable(_salesAndMarketingTile);
+            _driver.FindElement(_salesAndMarketingTile).Click();
+            _helpers.WaitForElementClickable(_tileSublink("Contacts"));
+            _driver.FindElement(_tileSublink("Contacts")).Click();
+            _helpers.WaitForURLContaining("module=Contacts");
 
-            return new ContactsPage(driver);
+            return new ContactsPage(_driver);
         }
         public ReportsPage OpenReportsPage()
         {
-            helpers.WaitForElementClickable(reportsAndSettingsTile);
-            driver.FindElement(reportsAndSettingsTile).Click();
-            helpers.WaitForElementClickable(tileSublink("Reports"));
-            driver.FindElement(tileSublink("Reports")).Click();
-            helpers.WaitForURLContaining("module=Reports");
+            _helpers.WaitForElementClickable(_reportsAndSettingsTile);
+            _driver.FindElement(_reportsAndSettingsTile).Click();
+            _helpers.WaitForElementClickable(_tileSublink("Reports"));
+            _driver.FindElement(_tileSublink("Reports")).Click();
+            _helpers.WaitForURLContaining("module=Reports");
 
-            return new ReportsPage(driver);
+            return new ReportsPage(_driver);
         }
         public ActivityLogPage OpenActivityLogPage()
         {
-            helpers.WaitForElementClickable(reportsAndSettingsTile);
-            driver.FindElement(reportsAndSettingsTile).Click();
-            helpers.WaitForElementClickable(tileSublink("Activity Log"));
-            driver.FindElement(tileSublink("Activity Log")).Click();
-            helpers.WaitForURLContaining("module=ActivityLog");
+            _helpers.WaitForElementClickable(_reportsAndSettingsTile);
+            _driver.FindElement(_reportsAndSettingsTile).Click();
+            _helpers.WaitForElementClickable(_tileSublink("Activity Log"));
+            _driver.FindElement(_tileSublink("Activity Log")).Click();
+            _helpers.WaitForURLContaining("module=ActivityLog");
 
-            return new ActivityLogPage(driver);
+            return new ActivityLogPage(_driver);
         }
     }
 }

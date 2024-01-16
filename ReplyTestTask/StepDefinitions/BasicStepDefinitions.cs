@@ -6,7 +6,7 @@ namespace ReplyTestTask.StepDefinitions
 {
     public class BasicStepDefinition
     {
-        protected IWebDriver driver;
+        protected IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
         LoginPage loginPage;
 
@@ -18,8 +18,8 @@ namespace ReplyTestTask.StepDefinitions
         [Given(@"Login")]
         public void GivenLogin()
         {
-            driver = _scenarioContext.Get<SeleniumDriver>("SeleniumDriver").Setup();
-            loginPage = new LoginPage(driver);
+            _driver = _scenarioContext.Get<SeleniumDriver>("SeleniumDriver").Setup();
+            loginPage = new LoginPage(_driver);
             loginPage.Login();
         }
     }

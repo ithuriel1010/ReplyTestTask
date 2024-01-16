@@ -8,40 +8,38 @@ namespace ReplyTestTask.Pages
 {
     public class Helpers
     {
-        private IWebDriver driver;
-        private WebDriverWait wait;
+        private readonly IWebDriver _driver;
+        private readonly WebDriverWait _wait;
         public Helpers(IWebDriver driver) 
         {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(10000));
+            _driver = driver;
+            _wait = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(10000));
         }
 
         public void WaitForElementClickable(By locator)
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
         }
         public void WaitForElementVisible(By locator)
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
         }
         public void WaitForElementWithText(By locator, string text)
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementLocated(locator, text));
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementLocated(locator, text));
         }
         public void WaitForURLContaining(string urlFraagment)
         {
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(urlFraagment));
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(urlFraagment));
         }
         public string GetSetUpProperty(string property) 
         {
-            string result;
-            string jsonFilePath = Path.Combine("Setup", "SetUp.json");
-            string jsonContent = File.ReadAllText(jsonFilePath);
+            var jsonFilePath = Path.Combine("Setup", "SetUp.json");
+            var jsonContent = File.ReadAllText(jsonFilePath);
             
-            JsonDocument jsonDocument = JsonDocument.Parse(jsonContent);
-            JsonElement root = jsonDocument.RootElement;
-            result = root.GetProperty(property).GetString();
-            return result;
+            var jsonDocument = JsonDocument.Parse(jsonContent);
+            var root = jsonDocument.RootElement;
+            return root.GetProperty(property).GetString();
         }
     }
 }
