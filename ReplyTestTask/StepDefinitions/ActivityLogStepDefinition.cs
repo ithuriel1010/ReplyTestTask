@@ -7,8 +7,8 @@ namespace ReplyTestTask.StepDefinitions
     [Scope(Feature = "ActivityLog")]
     public class ActivityLogStepDefinition : BasicStepDefinition
     {
-        TopNavbar topNavbar;
-        ActivityLogPage activityLogPage;
+        private TopNavbar _topNavbar;
+        private ActivityLogPage _activityLogPage;
         private int activityNumberBeforeDelete = 0;
 
         public ActivityLogStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext) {}
@@ -16,24 +16,24 @@ namespace ReplyTestTask.StepDefinitions
         [When(@"Navigate to Activity Log")]
         public void WhenNavigateToReports()
         {
-            topNavbar = new TopNavbar(_driver);
-            activityLogPage = topNavbar.OpenActivityLogPage();
+            _topNavbar = new TopNavbar(_driver);
+            _activityLogPage = _topNavbar.OpenActivityLogPage();
         }
 
         [When(@"Select first (.*) items")]
-        public void WhenSelectFirstItems(int number) => activityLogPage.SelectFirstActivities(number);
+        public void WhenSelectFirstItems(int number) => _activityLogPage.SelectFirstActivities(number);
 
         [When(@"Delete selected actions")]
         public void WhenDeleteSelectedActions()
         {
-            activityNumberBeforeDelete = activityLogPage.CheckActivityCount();
-            activityLogPage.DeleteSelectedActivities();
+            activityNumberBeforeDelete = _activityLogPage.CheckActivityCount();
+            _activityLogPage.DeleteSelectedActivities();
         }
 
         [Then(@"Check if (.*) items were deleted")]
         public void ThenCheckIfItemsWereDeleted(int number)
         {
-            int activityNumberAfterDelete = activityLogPage.CheckActivityCount();
+            int activityNumberAfterDelete = _activityLogPage.CheckActivityCount();
             int deletedActivities = activityNumberBeforeDelete - activityNumberAfterDelete;
             Assert.AreEqual(number, deletedActivities, "The actual value is not equal to the expected value.");
         }

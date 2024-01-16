@@ -7,8 +7,8 @@ namespace ReplyTestTask.StepDefinitions
     [Scope(Feature = "Contacts")]
     public class ContactStepDefinition:BasicStepDefinition
     {
-        TopNavbar topNavbar;
-        ContactsPage contactsPage;
+        private TopNavbar _topNavbar;
+        private ContactsPage _contactsPage;
         private readonly Contact _contact = new("Mark", "Green", "Sales", new List<string> { "Customers", "Suppliers" });
 
         public ContactStepDefinition(ScenarioContext scenarioContext): base(scenarioContext) {}
@@ -16,21 +16,21 @@ namespace ReplyTestTask.StepDefinitions
         [When(@"Navigate to Contacts")]
         public void WhenNavigateToContacts()
         {
-            topNavbar = new TopNavbar(_driver);
-            contactsPage = topNavbar.OpenContractsPage();
+            _topNavbar = new TopNavbar(_driver);
+            _contactsPage = _topNavbar.OpenContractsPage();
         }
 
         [When(@"Create new contact")]
-        public void WhenCreateNewContact() => contactsPage.CreateContact(_contact);
+        public void WhenCreateNewContact() => _contactsPage.CreateContact(_contact);
 
         [When(@"Open created contact")]
         public void WhenOpenCreatedContact()
         {
-            contactsPage = topNavbar.OpenContractsPage();
-            contactsPage.SearchForContact(_contact).OpenContact(_contact);
+            _contactsPage = _topNavbar.OpenContractsPage();
+            _contactsPage.SearchForContact(_contact).OpenContact(_contact);
         }
 
         [Then(@"Contract data matches")]
-        public void ThenContractDataMatches() => contactsPage.CheckContactInfo(_contact);
+        public void ThenContractDataMatches() => _contactsPage.CheckContactInfo(_contact);
     }
 }

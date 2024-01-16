@@ -6,8 +6,8 @@ namespace ReplyTestTask.StepDefinitions
     [Scope(Feature = "Reports")]
     public class ReportsStepDefinition : BasicStepDefinition
     {
-        TopNavbar topNavbar;
-        ReportsPage reportsPage;
+        private TopNavbar _topNavbar;
+        private ReportsPage _reportsPage;
         private readonly string _reportName = "Project Profitability";
 
         public ReportsStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext){}
@@ -15,17 +15,17 @@ namespace ReplyTestTask.StepDefinitions
         [When(@"Navigate to Reports")]
         public void WhenNavigateToReports()
         {
-            topNavbar = new TopNavbar(_driver);
-            reportsPage = topNavbar.OpenReportsPage();
+            _topNavbar = new TopNavbar(_driver);
+            _reportsPage = _topNavbar.OpenReportsPage();
         }
 
         [When(@"Find report")]
-        public void WhenFindReport() => reportsPage.SearchForReport(_reportName);
+        public void WhenFindReport() => _reportsPage.SearchForReport(_reportName);
 
         [When(@"Run report")]
-        public void WhenRunReport() => reportsPage.OpenReport(_reportName).RunReport();
+        public void WhenRunReport() => _reportsPage.OpenReport(_reportName).RunReport();
 
         [Then(@"Check results")]
-        public void ThenCheckResults() => reportsPage.CheckIfReportResultsAreDisplayed();
+        public void ThenCheckResults() => _reportsPage.CheckIfReportResultsAreDisplayed();
     }
 }
